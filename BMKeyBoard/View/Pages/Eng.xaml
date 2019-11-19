@@ -1,0 +1,50 @@
+﻿<Page x:Class="BMKeyBoard.View.Pages.Eng"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BMKeyBoard.View.Pages"
+      xmlns:vm="clr-namespace:BMKeyBoard.ViewModel"
+
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="850"
+      Title="Eng">
+    <Page.DataContext>
+        <vm:PageVM/>
+    </Page.DataContext>
+    <Grid>
+        <Button Visibility="Collapsed" x:Name="Button" Command="{Binding ISendCommand}"></Button>
+            <ItemsControl ItemsSource="{Binding Eng_Model}" Margin="10" >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Command="{Binding ElementName=Button, Path=Command}"
+                                CommandParameter="{Binding SendInfoN}" Margin="5" Height="{Binding H}" Width="{Binding W}">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid>
+                                        <Rectangle Stroke="DimGray" StrokeThickness="5" >
+                                            <Rectangle.Fill>
+                                                <!--<SolidColorBrush Color="BlueViolet"></SolidColorBrush>-->
+                                                <ImageBrush ImageSource="{Binding IconN}"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                        <Rectangle Stroke="Transparent" StrokeThickness="2">
+                                            <Rectangle.Fill>
+                                                <SolidColorBrush Color="Black" Opacity="0.2"></SolidColorBrush>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                        
+                                    </Grid>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+    </Grid>
+</Page>
