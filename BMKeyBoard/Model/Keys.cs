@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -9,6 +10,80 @@ using BMKeyBoard.Annotations;
 
 namespace BMKeyBoard.Model
 {
+    class OneStr:INotifyPropertyChanged
+    {
+
+
+        public void reverce()
+        {
+            foreach (var VARIABLE in Str)
+            {
+                VARIABLE.reverce();
+            }
+        }
+
+ 
+
+        private ObservableCollection<My_Keys> _Str = new ObservableCollection<My_Keys>();
+        public ObservableCollection<My_Keys> Str
+        {
+            get => _Str;
+            set
+            {
+                _Str = value;
+                OnPropertyChanged();
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    class Alphabet:INotifyPropertyChanged
+    {
+        public void reverce()
+        {
+            foreach (var VARIABLE in StrList)
+            {
+                VARIABLE.reverce();
+            }
+        }
+
+        private ObservableCollection<OneStr> _Str = new ObservableCollection<OneStr>();
+        public ObservableCollection<OneStr> StrList
+        {
+            get => _Str;
+            set
+            {
+                _Str = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+
+    class Pr
+    {
+        public string name { get; set; }
+
+        public Pr(string a)
+        {
+            name = a;
+        }
+    }
+
     class My_Keys:INotifyPropertyChanged
     {
         private char _ContentN;  
@@ -55,8 +130,8 @@ namespace BMKeyBoard.Model
 
         public Double H { get; set; }
         public Double W { get; set; }
-        private string _SendInfoN;
-        public string SendInfoN
+        private int _SendInfoN;
+        public int SendInfoN
         {
             get => _SendInfoN;
             set
@@ -65,8 +140,8 @@ namespace BMKeyBoard.Model
                 OnPropertyChanged();
             }
         }
-        private string _SendInfoSh;
-        public string SendInfoSh
+        private int _SendInfoSh;
+        public int SendInfoSh
         {
             get => _SendInfoSh;
             set
@@ -77,7 +152,7 @@ namespace BMKeyBoard.Model
         }
 
         public My_Keys(char contentN, char contentSh, string iconn, string iconsh, Double h, Double w,
-            string sendInfoN, string sendInfoSh)
+            int sendInfoN, int sendInfoSh)
         {
             ContentN = contentN;
             ContentSh = contentSh;
@@ -99,9 +174,10 @@ namespace BMKeyBoard.Model
             i = IconSh;
             IconSh = IconN;
             IconN = i;
-            i = SendInfoN;
+            int h;
+            h = SendInfoN;
             SendInfoN = SendInfoSh;
-            SendInfoSh = i;
+            SendInfoSh = h;
 
         }
 

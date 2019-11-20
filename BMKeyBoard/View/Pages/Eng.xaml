@@ -7,44 +7,79 @@
       xmlns:vm="clr-namespace:BMKeyBoard.ViewModel"
 
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="850"
+      d:DesignHeight="280" d:DesignWidth="730"
       Title="Eng">
     <Page.DataContext>
         <vm:PageVM/>
     </Page.DataContext>
-    <Grid>
+    <Grid HorizontalAlignment="Center">
         <Button Visibility="Collapsed" x:Name="Button" Command="{Binding ISendCommand}"></Button>
-            <ItemsControl ItemsSource="{Binding Eng_Model}" Margin="10" >
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button Command="{Binding ElementName=Button, Path=Command}"
-                                CommandParameter="{Binding SendInfoN}" Margin="5" Height="{Binding H}" Width="{Binding W}">
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Grid>
-                                        <Rectangle Stroke="DimGray" StrokeThickness="5" >
-                                            <Rectangle.Fill>
-                                                <!--<SolidColorBrush Color="BlueViolet"></SolidColorBrush>-->
-                                                <ImageBrush ImageSource="{Binding IconN}"/>
-                                            </Rectangle.Fill>
-                                        </Rectangle>
-                                        <Rectangle Stroke="Transparent" StrokeThickness="2">
-                                            <Rectangle.Fill>
-                                                <SolidColorBrush Color="Black" Opacity="0.2"></SolidColorBrush>
-                                            </Rectangle.Fill>
-                                        </Rectangle>
-                                        
-                                    </Grid>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+
+        <ItemsControl ItemsSource="{Binding Eng_Model}"  >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel HorizontalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ItemsControl ItemsSource="{Binding StrList}" Margin="2" >
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel HorizontalAlignment="Center" Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ItemsControl ItemsSource="{Binding Str}" Margin="2" >
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Button Command="{Binding ElementName=Button, Path=Command}"
+                                CommandParameter="{Binding SendInfoN}" Margin="2" Height="{Binding H}" Width="{Binding W}">
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Grid>
+                                                            <Rectangle Stroke="DimGray" StrokeThickness="5" >
+                                                                <Rectangle.Fill>
+                                                                    <!--<SolidColorBrush Color="BlueViolet"></SolidColorBrush>-->
+                                                                    <ImageBrush ImageSource="{Binding IconN}"/>
+                                                                </Rectangle.Fill>
+                                                            </Rectangle>
+                                                            <Rectangle Stroke="Transparent" StrokeThickness="2">
+                                                                <Rectangle.Fill>
+                                                                    <SolidColorBrush Color="Black" Opacity="0.2"></SolidColorBrush>
+                                                                </Rectangle.Fill>
+                                                            </Rectangle>
+
+                                                        </Grid>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                            </Button>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <!--<ItemsControl ItemsSource="{Binding Proc}" Margin="10" >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBox Text ="{Binding name}"></TextBox>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>-->
     </Grid>
 </Page>
