@@ -8,12 +8,13 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>BMKeyBoard</RootNamespace>
     <AssemblyName>BMKeyBoard</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -60,14 +61,11 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Utilities\RelayCommand.cs" />
     <Compile Include="ViewModel\PageVM.cs" />
-    <Compile Include="View\Pages\Eng.xaml.cs">
-      <DependentUpon>Eng.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Pages\Key.xaml.cs">
       <DependentUpon>Key.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Pages\Rus.xaml.cs">
-      <DependentUpon>Rus.xaml</DependentUpon>
+    <Compile Include="View\Pages\Lang.xaml.cs">
+      <DependentUpon>Lang.xaml</DependentUpon>
     </Compile>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -82,15 +80,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\Pages\Eng.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\Pages\Key.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Pages\Rus.xaml">
+    <Page Include="View\Pages\Lang.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -122,75 +116,188 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resource\shift.png" />
+    <Folder Include="Resource\white\eng\caps\" />
+    <Folder Include="Resource\white\eng\small\" />
+    <Folder Include="Resource\white\num\" />
+    <Folder Include="Resource\white\rus\" />
+    <Folder Include="Resource\white\symb\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resource\!!!.png" />
-    <Resource Include="Resource\!!.png" />
-    <Resource Include="Resource\!.png" />
-    <Resource Include="Resource\A.png" />
-    <Resource Include="Resource\a1.png" />
-    <Resource Include="Resource\B.png" />
-    <Resource Include="Resource\b1.png" />
-    <Resource Include="Resource\C.png" />
-    <Resource Include="Resource\c1.png" />
-    <Resource Include="Resource\comma.png" />
-    <Resource Include="Resource\D.png" />
-    <Resource Include="Resource\d1.png" />
-    <Resource Include="Resource\del.png" />
-    <Resource Include="Resource\dot.png" />
-    <Resource Include="Resource\E.png" />
-    <Resource Include="Resource\e1.png" />
-    <Resource Include="Resource\enter.png" />
-    <Resource Include="Resource\F.png" />
-    <Resource Include="Resource\f1.png" />
-    <Resource Include="Resource\G.png" />
-    <Resource Include="Resource\g1.png" />
-    <Resource Include="Resource\H.png" />
-    <Resource Include="Resource\h1.png" />
-    <Resource Include="Resource\I.png" />
-    <Resource Include="Resource\i1.png" />
-    <Resource Include="Resource\J.png" />
-    <Resource Include="Resource\j1.png" />
-    <Resource Include="Resource\K.png" />
-    <Resource Include="Resource\k1.png" />
-    <Resource Include="Resource\L.png" />
-    <Resource Include="Resource\l1.png" />
-    <Resource Include="Resource\M.png" />
-    <Resource Include="Resource\m1.png" />
-    <Resource Include="Resource\N.png" />
-    <Resource Include="Resource\n1.png" />
-    <Resource Include="Resource\num.png" />
-    <Resource Include="Resource\O.png" />
-    <Resource Include="Resource\o1.png" />
-    <Resource Include="Resource\P.png" />
-    <Resource Include="Resource\p1.png" />
-    <Resource Include="Resource\Q.png" />
-    <Resource Include="Resource\q1.png" />
-    <Resource Include="Resource\R.png" />
-    <Resource Include="Resource\r1.png" />
-    <Resource Include="Resource\S.png" />
-    <Resource Include="Resource\s1.png" />
-    <Resource Include="Resource\T.png" />
-    <Resource Include="Resource\t1.png" />
-    <Resource Include="Resource\U.png" />
-    <Resource Include="Resource\u1.png" />
-    <Resource Include="Resource\V.png" />
-    <Resource Include="Resource\v1.png" />
-    <Resource Include="Resource\W.png" />
-    <Resource Include="Resource\w1.png" />
-    <Resource Include="Resource\X.png" />
-    <Resource Include="Resource\x1.png" />
-    <Resource Include="Resource\Y.png" />
-    <Resource Include="Resource\y1.png" />
-    <Resource Include="Resource\Z.png" />
-    <Resource Include="Resource\z1.png" />
+    <Resource Include="Resource\black\eng\caps\A.png" />
+    <Resource Include="Resource\black\eng\caps\B.png" />
+    <Resource Include="Resource\black\eng\caps\C.png" />
+    <Resource Include="Resource\black\eng\caps\D.png" />
+    <Resource Include="Resource\black\eng\caps\E.png" />
+    <Resource Include="Resource\black\eng\caps\F.png" />
+    <Resource Include="Resource\black\eng\caps\G.png" />
+    <Resource Include="Resource\black\eng\caps\H.png" />
+    <Resource Include="Resource\black\eng\caps\I.png" />
+    <Resource Include="Resource\black\eng\caps\J.png" />
+    <Resource Include="Resource\black\eng\caps\K.png" />
+    <Resource Include="Resource\black\eng\caps\L.png" />
+    <Resource Include="Resource\black\eng\caps\M.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resource\eng.png" />
+    <Resource Include="Resource\black\eng\caps\N.png" />
+    <Resource Include="Resource\black\eng\caps\O.png" />
+    <Resource Include="Resource\black\eng\caps\P.png" />
+    <Resource Include="Resource\black\eng\caps\Q.png" />
+    <Resource Include="Resource\black\eng\caps\R.png" />
+    <Resource Include="Resource\black\eng\caps\S.png" />
+    <Resource Include="Resource\black\eng\caps\T.png" />
+    <Resource Include="Resource\black\eng\caps\U.png" />
+    <Resource Include="Resource\black\eng\caps\V.png" />
+    <Resource Include="Resource\black\eng\caps\W.png" />
+    <Resource Include="Resource\black\eng\caps\X.png" />
+    <Resource Include="Resource\black\eng\caps\Y.png" />
+    <Resource Include="Resource\black\eng\caps\Z.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resource\z1.jpg" />
+    <Resource Include="Resource\black\eng\small\a.png" />
+    <Resource Include="Resource\black\eng\small\b.png" />
+    <Resource Include="Resource\black\eng\small\c.png" />
+    <Resource Include="Resource\black\eng\small\d.png" />
+    <Resource Include="Resource\black\eng\small\e.png" />
+    <Resource Include="Resource\black\eng\small\f.png" />
+    <Resource Include="Resource\black\eng\small\g.png" />
+    <Resource Include="Resource\black\eng\small\h.png" />
+    <Resource Include="Resource\black\eng\small\i.png" />
+    <Resource Include="Resource\black\eng\small\j.png" />
+    <Resource Include="Resource\black\eng\small\k.png" />
+    <Resource Include="Resource\black\eng\small\l.png" />
+    <Resource Include="Resource\black\eng\small\m.png" />
+    <Resource Include="Resource\black\eng\small\n.png" />
+    <Resource Include="Resource\black\eng\small\o.png" />
+    <Resource Include="Resource\black\eng\small\p.png" />
+    <Resource Include="Resource\black\eng\small\q.png" />
+    <Resource Include="Resource\black\eng\small\r.png" />
+    <Resource Include="Resource\black\eng\small\s.png" />
+    <Resource Include="Resource\black\eng\small\t.png" />
+    <Resource Include="Resource\black\eng\small\u.png" />
+    <Resource Include="Resource\black\eng\small\v.png" />
+    <Resource Include="Resource\black\eng\small\w.png" />
+    <Resource Include="Resource\black\eng\small\x.png" />
+    <Resource Include="Resource\black\eng\small\y.png" />
+    <Resource Include="Resource\black\eng\small\z.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\black\rus\small\а.png" />
+    <Resource Include="Resource\black\rus\small\б.png" />
+    <Resource Include="Resource\black\rus\small\в.png" />
+    <Resource Include="Resource\black\rus\small\г.png" />
+    <Resource Include="Resource\black\rus\small\д.png" />
+    <Resource Include="Resource\black\rus\small\ж.png" />
+    <Resource Include="Resource\black\rus\small\з.png" />
+    <Resource Include="Resource\black\rus\small\и.png" />
+    <Resource Include="Resource\black\rus\small\й.png" />
+    <Resource Include="Resource\black\rus\small\к.png" />
+    <Resource Include="Resource\black\rus\small\л.png" />
+    <Resource Include="Resource\black\rus\small\м.png" />
+    <Resource Include="Resource\black\rus\small\н.png" />
+    <Resource Include="Resource\black\rus\small\о.png" />
+    <Resource Include="Resource\black\rus\small\п.png" />
+    <Resource Include="Resource\black\rus\small\р.png" />
+    <Resource Include="Resource\black\rus\small\с.png" />
+    <Resource Include="Resource\black\rus\small\т.png" />
+    <Resource Include="Resource\black\rus\small\у.png" />
+    <Resource Include="Resource\black\rus\small\ф.png" />
+    <Resource Include="Resource\black\rus\small\х.png" />
+    <Resource Include="Resource\black\rus\small\ц.png" />
+    <Resource Include="Resource\black\rus\small\ч.png" />
+    <Resource Include="Resource\black\rus\small\ш.png" />
+    <Resource Include="Resource\black\rus\small\щ.png" />
+    <Resource Include="Resource\black\rus\small\ъ.png" />
+    <Resource Include="Resource\black\rus\small\ы.png" />
+    <Resource Include="Resource\black\rus\small\ь.png" />
+    <Resource Include="Resource\black\rus\small\э.png" />
+    <Resource Include="Resource\black\rus\small\ю.png" />
+    <Resource Include="Resource\black\rus\small\я.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\black\rus\caps\А.png" />
+    <Resource Include="Resource\black\rus\caps\Б.png" />
+    <Resource Include="Resource\black\rus\caps\В.png" />
+    <Resource Include="Resource\black\rus\caps\Г.png" />
+    <Resource Include="Resource\black\rus\caps\Д.png" />
+    <Resource Include="Resource\black\rus\caps\Е.png" />
+    <Resource Include="Resource\black\rus\caps\Ж.png" />
+    <Resource Include="Resource\black\rus\caps\З.png" />
+    <Resource Include="Resource\black\rus\caps\И.png" />
+    <Resource Include="Resource\black\rus\caps\Й.png" />
+    <Resource Include="Resource\black\rus\caps\К.png" />
+    <Resource Include="Resource\black\rus\caps\Л.png" />
+    <Resource Include="Resource\black\rus\caps\М.png" />
+    <Resource Include="Resource\black\rus\caps\Н.png" />
+    <Resource Include="Resource\black\rus\caps\О.png" />
+    <Resource Include="Resource\black\rus\caps\П.png" />
+    <Resource Include="Resource\black\rus\caps\Р.png" />
+    <Resource Include="Resource\black\rus\caps\С.png" />
+    <Resource Include="Resource\black\rus\caps\Т.png" />
+    <Resource Include="Resource\black\rus\caps\У.png" />
+    <Resource Include="Resource\black\rus\caps\Ф.png" />
+    <Resource Include="Resource\black\rus\caps\Х.png" />
+    <Resource Include="Resource\black\rus\caps\Ц.png" />
+    <Resource Include="Resource\black\rus\caps\Ч.png" />
+    <Resource Include="Resource\black\rus\caps\Ш.png" />
+    <Resource Include="Resource\black\rus\caps\Щ.png" />
+    <Resource Include="Resource\black\rus\caps\Ъ.png" />
+    <Resource Include="Resource\black\rus\caps\Ы.png" />
+    <Resource Include="Resource\black\rus\caps\Ь.png" />
+    <Resource Include="Resource\black\rus\caps\Э.png" />
+    <Resource Include="Resource\black\rus\caps\Ю.png" />
+    <Resource Include="Resource\black\rus\caps\Я.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\black\rus\small\е.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\black\num\0.png" />
+    <Resource Include="Resource\black\num\1.png" />
+    <Resource Include="Resource\black\num\2.png" />
+    <Resource Include="Resource\black\num\3.png" />
+    <Resource Include="Resource\black\num\4.png" />
+    <Resource Include="Resource\black\num\5.png" />
+    <Resource Include="Resource\black\num\6.png" />
+    <Resource Include="Resource\black\num\7.png" />
+    <Resource Include="Resource\black\num\8.png" />
+    <Resource Include="Resource\black\num\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\black\symb\!.png" />
+    <Resource Include="Resource\black\symb\%28.png" />
+    <Resource Include="Resource\black\symb\%29.png" />
+    <Resource Include="Resource\black\symb\%3b.png" />
+    <Resource Include="Resource\black\symb\%40.png" />
+    <Resource Include="Resource\black\symb\+.png" />
+    <Resource Include="Resource\black\symb\,.png" />
+    <Resource Include="Resource\black\symb\-.png" />
+    <Resource Include="Resource\black\symb\2.png" />
+    <Resource Include="Resource\black\symb\=.png" />
+    <Resource Include="Resource\black\symb\del.png" />
+    <Resource Include="Resource\black\symb\del2.png" />
+    <Resource Include="Resource\black\symb\enter.png" />
+    <Resource Include="Resource\black\symb\enter2.png" />
+    <Resource Include="Resource\black\symb\lang.png" />
+    <Resource Include="Resource\black\symb\nums.png" />
+    <Resource Include="Resource\black\symb\_.png" />
+    <Resource Include="Resource\black\symb\{.png" />
+    <Resource Include="Resource\black\symb\}.png" />
+    <Resource Include="Resource\black\symb\~.png" />
+    <Resource Include="Resource\black\symb\а.png" />
+    <Resource Include="Resource\black\symb\б.png" />
+    <Resource Include="Resource\black\symb\в.png" />
+    <Resource Include="Resource\black\symb\ж.png" />
+    <Resource Include="Resource\black\symb\з.png" />
+    <Resource Include="Resource\black\symb\й.png" />
+    <Resource Include="Resource\black\symb\п.png" />
+    <Resource Include="Resource\black\symb\с.png" />
+    <Resource Include="Resource\black\symb\т.png" />
+    <Resource Include="Resource\black\symb\х.png" />
+    <Resource Include="Resource\black\symb\ъ.png" />
+    <Resource Include="Resource\black\symb\ю.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\black\symb\shift.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

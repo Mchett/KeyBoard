@@ -15,11 +15,35 @@ using System.Threading;
 using BMKeyBoard.Annotations;
 using BMKeyBoard.Utilities;
 using BMKeyBoard.View.Pages;
+using System.Windows.Markup;
+using System.Windows.Data;
+using System.Globalization;
 
 namespace BMKeyBoard.ViewModel
 {
+    public  class YourConverter : IMultiValueConverter
+    {
+
+   
+        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+                return values.Clone();
+
+                Tuple<string, string> tuple = new Tuple<string, string>((string)values[0], (string)values[1]);
+            return tuple;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
     class PageVM:INotifyPropertyChanged
     {
+        public static YourConverter YC = new YourConverter();
+        private static IntPtr hwnd1;
         private ObservableCollection<Pr> _proc = new ObservableCollection<Pr>();
         public ObservableCollection<Pr> Proc
         {
@@ -27,6 +51,16 @@ namespace BMKeyBoard.ViewModel
             set
             {
                 _proc = value;
+                OnPropertyChanged();
+            }
+        }
+        private ObservableCollection<Alphabet> _model_curLang = new ObservableCollection<Alphabet>();
+        public ObservableCollection<Alphabet> CurLang_Model
+        {
+            get => _model_curLang;
+            set
+            {
+                _model_curLang = value;
                 OnPropertyChanged();
             }
         }
@@ -60,7 +94,7 @@ namespace BMKeyBoard.ViewModel
                 OnPropertyChanged();
             }
         }
-        
+        public static string Lang { get; set; }
 
         public static bool sh
         {
@@ -81,6 +115,9 @@ namespace BMKeyBoard.ViewModel
             EngAlph();
             RusAlph();
             NumKeys();
+            Lang = "eng";
+            CurLang_Model = Eng_Model;
+            hwnd1 = FindWindow(null, "Новый текстовый документ.txt – Блокнот");
 
         }
 
@@ -88,176 +125,170 @@ namespace BMKeyBoard.ViewModel
         {
             Eng_Model.Add(new Alphabet());
             Eng_Model[0].StrList.Add(new OneStr());
-            Eng_Model[0].StrList[0].Str.Add(new My_Keys('q', 'Q', "../../Resource/q1.png", "../../Resource/Q.png", 1, 1, 81, 81));
-           Eng_Model[0].StrList[0].Str.Add(new My_Keys('w', 'W', "../../Resource/w1.png", "../../Resource/W.png", 1, 1, 87, 87));
-           Eng_Model[0].StrList[0].Str.Add(new My_Keys('e', 'E', "../../Resource/e1.png", "../../Resource/E.png", 1, 1, 69, 69));
-           Eng_Model[0].StrList[0].Str.Add(new My_Keys('r', 'R', "../../Resource/r1.png", "../../Resource/R.png", 1, 1, 82, 82));
-           Eng_Model[0].StrList[0].Str.Add(new My_Keys('t', 'T', "../../Resource/t1.png", "../../Resource/T.png", 1, 1, 84, 84));
-           Eng_Model[0].StrList[0].Str.Add(new My_Keys('y', 'Y', "../../Resource/y1.png", "../../Resource/Y.png", 1, 1, 89, 89));
-           Eng_Model[0].StrList[0].Str.Add(new My_Keys('u', 'U', "../../Resource/u1.png", "../../Resource/U.png", 1, 1, 85, 85));
-           Eng_Model[0].StrList[0].Str.Add(new My_Keys('i', 'I', "../../Resource/i1.png", "../../Resource/I.png", 1, 1, 73, 73));
-           Eng_Model[0].StrList[0].Str.Add(new My_Keys('o', 'O', "../../Resource/o1.png", "../../Resource/O.png", 1, 1, 79, 79));
-           Eng_Model[0].StrList[0].Str.Add(new My_Keys('p', 'P', "../../Resource/p1.png", "../../Resource/P.png", 1, 1, 80, 80));
-           Eng_Model[0].StrList[0].Str.Add(new My_Keys('!', '?', "../../Resource/!.png", "../../Resource/!!.png", 1, 1, 0, 0));
-            Eng_Model[0].StrList[0].Str.Add(new My_Keys(' ', ' ', "../../Resource/del.png", "../../Resource/del.png", 1, 2.5, 8, 8));
+            Eng_Model[0].StrList[0].Str.Add(new My_Keys('q', 'Q', "../../Resource/black/eng/small/q.png", "../../Resource/black/eng/caps/Q.png", 1, 1, 81, 81));
+            Eng_Model[0].StrList[0].Str.Add(new My_Keys('w', 'W', "../../Resource/black/eng/small/w.png", "../../Resource/black/eng/caps/W.png", 1, 1, 87, 87));
+            Eng_Model[0].StrList[0].Str.Add(new My_Keys('e', 'E', "../../Resource/black/eng/small/e.png", "../../Resource/black/eng/caps/E.png", 1, 1, 69, 69));
+            Eng_Model[0].StrList[0].Str.Add(new My_Keys('r', 'R', "../../Resource/black/eng/small/r.png", "../../Resource/black/eng/caps/R.png", 1, 1, 82, 82));
+            Eng_Model[0].StrList[0].Str.Add(new My_Keys('t', 'T', "../../Resource/black/eng/small/t.png", "../../Resource/black/eng/caps/T.png", 1, 1, 84, 84));
+            Eng_Model[0].StrList[0].Str.Add(new My_Keys('y', 'Y', "../../Resource/black/eng/small/y.png", "../../Resource/black/eng/caps/Y.png", 1, 1, 89, 89));
+            Eng_Model[0].StrList[0].Str.Add(new My_Keys('u', 'U', "../../Resource/black/eng/small/u.png", "../../Resource/black/eng/caps/U.png", 1, 1, 85, 85));
+            Eng_Model[0].StrList[0].Str.Add(new My_Keys('i', 'I', "../../Resource/black/eng/small/i.png", "../../Resource/black/eng/caps/I.png", 1, 1, 73, 73));
+            Eng_Model[0].StrList[0].Str.Add(new My_Keys('o', 'O', "../../Resource/black/eng/small/o.png", "../../Resource/black/eng/caps/O.png", 1, 1, 79, 79));
+            Eng_Model[0].StrList[0].Str.Add(new My_Keys('p', 'P', "../../Resource/black/eng/small/p.png", "../../Resource/black/eng/caps/P.png", 1, 1, 80, 80));
+            Eng_Model[0].StrList[0].Str.Add(new My_Keys('!', '?', "../../Resource/black/symb/!.png", "../../Resource/black/symb/в.png", 1, 1, 49, 191));
+            Eng_Model[0].StrList[0].Str.Add(new My_Keys(' ', ' ', "../../Resource/black/symb/del.png", "../../Resource/black/symb/del.png", 1, 2, 8, 8));
             Eng_Model[0].StrList.Add(new OneStr());
-            Eng_Model[0].StrList[1].Str.Add(new My_Keys('a', 'A', "../../Resource/a1.png", "../../Resource/A.png", 1, 1, 65, 65));
-            Eng_Model[0].StrList[1].Str.Add(new My_Keys('d', 'D', "../../Resource/d1.png", "../../Resource/D.png", 1, 1, 68, 68));
-            Eng_Model[0].StrList[1].Str.Add(new My_Keys('s', 'S', "../../Resource/s1.png", "../../Resource/S.png", 1, 1, 83, 83));
-            Eng_Model[0].StrList[1].Str.Add(new My_Keys('f', 'F', "../../Resource/f1.png", "../../Resource/F.png", 1, 1, 70, 70));
-            Eng_Model[0].StrList[1].Str.Add(new My_Keys('g', 'G', "../../Resource/g1.png", "../../Resource/G.png", 1, 1, 71, 71));
-            Eng_Model[0].StrList[1].Str.Add(new My_Keys('h', 'H', "../../Resource/h1.png", "../../Resource/H.png", 1, 1, 72, 72));
-            Eng_Model[0].StrList[1].Str.Add(new My_Keys('j', 'J', "../../Resource/j1.png", "../../Resource/J.png", 1, 1, 74, 74));
-            Eng_Model[0].StrList[1].Str.Add(new My_Keys('k', 'K', "../../Resource/k1.png", "../../Resource/K.png", 1, 1, 75, 75));
-            Eng_Model[0].StrList[1].Str.Add(new My_Keys('l', 'L', "../../Resource/l1.png", "../../Resource/L.png", 1, 1, 76, 76));
-            Eng_Model[0].StrList[1].Str.Add(new My_Keys('*', '*', "../../Resource/!!!.png", "../../Resource/!!!.png", 1, 1, 0, 0));
-            Eng_Model[0].StrList[1].Str.Add(new My_Keys(' ', ' ', "../../Resource/enter.png", "../../Resource/enter.png", 1, 2.5, 13, 13));
+            Eng_Model[0].StrList[1].Str.Add(new My_Keys('a', 'A', "../../Resource/black/eng/small/a.png", "../../Resource/black/eng/caps/A.png", 1, 1, 65, 65));
+            Eng_Model[0].StrList[1].Str.Add(new My_Keys('d', 'D', "../../Resource/black/eng/small/d.png", "../../Resource/black/eng/caps/D.png", 1, 1, 68, 68));
+            Eng_Model[0].StrList[1].Str.Add(new My_Keys('s', 'S', "../../Resource/black/eng/small/s.png", "../../Resource/black/eng/caps/S.png", 1, 1, 83, 83));
+            Eng_Model[0].StrList[1].Str.Add(new My_Keys('f', 'F', "../../Resource/black/eng/small/f.png", "../../Resource/black/eng/caps/F.png", 1, 1, 70, 70));
+            Eng_Model[0].StrList[1].Str.Add(new My_Keys('g', 'G', "../../Resource/black/eng/small/g.png", "../../Resource/black/eng/caps/G.png", 1, 1, 71, 71));
+            Eng_Model[0].StrList[1].Str.Add(new My_Keys('h', 'H', "../../Resource/black/eng/small/h.png", "../../Resource/black/eng/caps/H.png", 1, 1, 72, 72));
+            Eng_Model[0].StrList[1].Str.Add(new My_Keys('j', 'J', "../../Resource/black/eng/small/j.png", "../../Resource/black/eng/caps/J.png", 1, 1, 74, 74));
+            Eng_Model[0].StrList[1].Str.Add(new My_Keys('k', 'K', "../../Resource/black/eng/small/k.png", "../../Resource/black/eng/caps/K.png", 1, 1, 75, 75));
+            Eng_Model[0].StrList[1].Str.Add(new My_Keys('l', 'L', "../../Resource/black/eng/small/l.png", "../../Resource/black/eng/caps/L.png", 1, 1, 76, 76));
+            Eng_Model[0].StrList[1].Str.Add(new My_Keys('*', '*', "../../Resource/black/symb/з.png", "../../Resource/black/symb/з.png", 1, 1, 56, 56));
+            Eng_Model[0].StrList[1].Str.Add(new My_Keys(' ', ' ', "../../Resource/black/symb/enter.png", "../../Resource/black/symb/enter.png", 1, 2, 13, 13));
             Eng_Model[0].StrList.Add(new OneStr());
-            Eng_Model[0].StrList[2].Str.Add(new My_Keys('z', 'Z', "../../Resource/z1.jpg", "../../Resource/Z.png", 1, 1, 90, 90));
-            Eng_Model[0].StrList[2].Str.Add(new My_Keys('x', 'X', "../../Resource/x1.png", "../../Resource/X.png", 1, 1, 88, 88));
-            Eng_Model[0].StrList[2].Str.Add(new My_Keys('c', 'C', "../../Resource/c1.png", "../../Resource/C.png", 1, 1, 67, 67));
-            Eng_Model[0].StrList[2].Str.Add(new My_Keys('v', 'V', "../../Resource/v1.png", "../../Resource/V.png", 1, 1, 86, 86));
-            Eng_Model[0].StrList[2].Str.Add(new My_Keys('b', 'B', "../../Resource/b1.png", "../../Resource/B.png", 1, 1, 66, 66));
-            Eng_Model[0].StrList[2].Str.Add(new My_Keys('n', 'N', "../../Resource/n1.png", "../../Resource/N.png", 1, 1, 78, 78));
-            Eng_Model[0].StrList[2].Str.Add(new My_Keys('m', 'M', "../../Resource/m1.png", "../../Resource/M.png", 1, 1, 77, 77));
-            Eng_Model[0].StrList[2].Str.Add(new My_Keys(',', ',', "../../Resource/comma.png", "../../Resource/comma.png", 1, 1, 0, 0));
-            Eng_Model[0].StrList[2].Str.Add(new My_Keys('.', '.', "../../Resource/dot.png", "../../Resource/dot.png", 1, 1, 0, 0));
+            Eng_Model[0].StrList[2].Str.Add(new My_Keys('z', 'Z', "../../Resource/black/eng/small/z.png", "../../Resource/black/eng/caps/Z.png", 1, 1, 90, 90));
+            Eng_Model[0].StrList[2].Str.Add(new My_Keys('x', 'X', "../../Resource/black/eng/small/x.png", "../../Resource/black/eng/caps/X.png", 1, 1, 88, 88));
+            Eng_Model[0].StrList[2].Str.Add(new My_Keys('c', 'C', "../../Resource/black/eng/small/c.png", "../../Resource/black/eng/caps/C.png", 1, 1, 67, 67));
+            Eng_Model[0].StrList[2].Str.Add(new My_Keys('v', 'V', "../../Resource/black/eng/small/v.png", "../../Resource/black/eng/caps/V.png", 1, 1, 86, 86));
+            Eng_Model[0].StrList[2].Str.Add(new My_Keys('b', 'B', "../../Resource/black/eng/small/b.png", "../../Resource/black/eng/caps/B.png", 1, 1, 66, 66));
+            Eng_Model[0].StrList[2].Str.Add(new My_Keys('n', 'N', "../../Resource/black/eng/small/n.png", "../../Resource/black/eng/caps/N.png", 1, 1, 78, 78));
+            Eng_Model[0].StrList[2].Str.Add(new My_Keys('m', 'M', "../../Resource/black/eng/small/m.png", "../../Resource/black/eng/caps/M.png", 1, 1, 77, 77));
+            Eng_Model[0].StrList[2].Str.Add(new My_Keys(',', ',', "../../Resource/black/symb/,.png", "../../Resource/black/symb/,.png", 1, 1, 188, 188));
+            Eng_Model[0].StrList[2].Str.Add(new My_Keys('.', '.', "../../Resource/black/symb/т.png", "../../Resource/black/symb/т.png", 1, 1, 190, 190));
             Eng_Model[0].StrList.Add(new OneStr());
-            Eng_Model[0].StrList[3].Str.Add(new My_Keys(' ', ' ', "../../Resource/shift.png", "../../Resource/shift.png", 1, 1, 16, 16));
-            Eng_Model[0].StrList[3].Str.Add(new My_Keys(' ', ' ', "../../Resource/num.png", "../../Resource/num.png", 1, 1, -2, -2));
+            Eng_Model[0].StrList[3].Str.Add(new My_Keys(' ', ' ', "../../Resource/black/symb/shift.png", "../../Resource/black/symb/shift.png", 1, 1, 16, 16));
+            Eng_Model[0].StrList[3].Str.Add(new My_Keys(' ', ' ', "../../Resource/black/symb/nums.png", "../../Resource/black/symb/nums.png", 1, 1, -2, -2));
             Eng_Model[0].StrList[3].Str.Add(new My_Keys(' ', ' ', "", "", 1, 6, 32, 32));
-            Eng_Model[0].StrList[3].Str.Add(new My_Keys(' ', ' ', "../../Resource/eng.png", "../../Resource/eng.png", 1, 1, -1, -1));
-            Eng_Model[0].StrList[3].Str.Add(new My_Keys(' ', ' ', "../../Resource/shift.png", "../../Resource/shift.png", 1, 1, 16, 16));
-
-            //Eng_Model.Add(new My_Keys('', '', "../../Resource/1.png", "../../Resource/.png", 1, 1, "", ""));
-
+            Eng_Model[0].StrList[3].Str.Add(new My_Keys(' ', ' ', "../../Resource/black/symb/lang.png", "../../Resource/black/symb/lang.png", 1, 1, -1, -1));
+            Eng_Model[0].StrList[3].Str.Add(new My_Keys(' ', ' ', "../../Resource/black/symb/shift.png", "../../Resource/black/symb/shift.png", 1, 1, 16, 16));
         }
-        public enum VKeys
-        {
-            VK_LBUTTON = 1,
-            VK_RBUTTON = 2,
-            VK_CANCEL = 3,
-            VK_MBUTTON = 4,
-            VK_BACK = 8,
-            VK_TAB = 9,
-            VK_CLEAR = 12,
-            VK_RETURN = 13,
-            VK_SHIFT = 16,
-            VK_CONTROL = 17,
-            VK_MENU = 18,
-            VK_PAUSE = 19,
-            VK_CAPITAL = 20,
-            VK_ESCAPE = 27,
-            VK_SPACE = 32,
-            VK_PRIOR = 33,
-            VK_NEXT = 34,
-            VK_END = 35,
-            VK_HOME = 36,
-            VK_LEFT = 37,
-            VK_UP = 38,
-            VK_RIGHT = 39,
-            VK_DOWN = 40,
-            VK_SELECT = 41,
-            VK_PRINT = 42,
-            VK_EXECUTE = 43,
-            VK_SNAPSHOT = 44,
-            VK_INSERT = 45,
-            VK_DELETE = 46,
-            VK_HELP = 47,
-            VK_0 = 48,
-            VK_1 = 49,
-            VK_2 = 50,
-            VK_3 = 51,
-            VK_4 = 52,
-            VK_5 = 53,
-            VK_6 = 54,
-            VK_7 = 55,
-            VK_8 = 56,
-            VK_9 = 57,
-            VK_A = 65,
-            VK_B = 66,
-            VK_C = 67,
-            VK_D = 68,
-            VK_E = 69,
-            VK_F = 70,
-            VK_G = 71,
-            VK_H = 72,
-            VK_I = 73,
-            VK_J = 74,
-            VK_K = 75,
-            VK_L = 76,
-            VK_M = 77,
-            VK_N = 78,
-            VK_O = 79,
-            VK_P = 80,
-            VK_Q = 81,
-            VK_R = 82,
-            VK_S = 83,
-            VK_T = 84,
-            VK_U = 85,
-            VK_V = 86,
-            VK_W = 87,
-            VK_X = 88,
-            VK_Y = 89,
-            VK_Z = 90,
-            VK_NUMPAD0 = 96,
-            VK_NUMPAD1 = 97,
-            VK_NUMPAD2 = 98,
-            VK_NUMPAD3 = 99,
-            VK_NUMPAD4 = 100,
-            VK_NUMPAD5 = 101,
-            VK_NUMPAD6 = 102,
-            VK_NUMPAD7 = 103,
-            VK_NUMPAD8 = 104,
-            VK_NUMPAD9 = 105,
-            VK_SEPARATOR = 108,
-            VK_SUBTRACT = 109,
-            VK_DECIMAL = 110,
-            VK_DIVIDE = 111,
-            VK_F1 = 112,
-            VK_F2 = 113,
-            VK_F3 = 114,
-            VK_F4 = 115,
-            VK_F5 = 116,
-            VK_F6 = 117,
-            VK_F7 = 118,
-            VK_F8 = 119,
-            VK_F9 = 120,
-            VK_F10 = 121,
-            VK_F11 = 122,
-            VK_F12 = 123,
-            VK_SCROLL = 145,
-            VK_LSHIFT = 160,
-            VK_RSHIFT = 161,
-            VK_LCONTROL = 162,
-            VK_RCONTROL = 163,
-            VK_LMENU = 164,
-            VK_RMENU = 165,
-            VK_PLAY = 250,
-            VK_ZOOM = 251,
-            VK_LWinKey = 91,
-            VK_RWinKey = 92,
-            VK_OEM_MINUS = 0xBD,
-            VK_OEM_PLUS = 187,
-            VK_OEM_1 = 0xba,
-            VK_OEM_COMMA = 0xbc,
-            VK_OEM_PERIOD = 0xbe,
-            VK_OEM_2 = 0xbf,
-            VK_OEM3 = 0xc0,
-            VK_OEM_4 = 0xdb,
-            VK_OEM_5 = 0xdc,
-            VK_OEM_6 = 0xdd,
-            VK_OEM_7 = 0xde,
-            VK_OEM_8 = 0xdf,
-            VK_NONE = 255
-        };
 
         private void RusAlph()
         {
+
+            Rus_Model.Add(new Alphabet());
+            Rus_Model[0].StrList.Add(new OneStr());
+            Rus_Model[0].StrList[0].Str.Add(new My_Keys('й', 'Й', "../../Resource/black/rus/small/й.png", "../../Resource/black/rus/caps/Й.png", 1, 1, 81, 81));
+            Rus_Model[0].StrList[0].Str.Add(new My_Keys('ц', 'Ц', "../../Resource/black/rus/small/ц.png", "../../Resource/black/rus/caps/Ц.png", 1, 1, 87, 87));
+            Rus_Model[0].StrList[0].Str.Add(new My_Keys('у', 'У', "../../Resource/black/rus/small/у.png", "../../Resource/black/rus/caps/У.png", 1, 1, 69, 69));
+            Rus_Model[0].StrList[0].Str.Add(new My_Keys('к', 'К', "../../Resource/black/rus/small/к.png", "../../Resource/black/rus/caps/К.png", 1, 1, 82, 82));
+            Rus_Model[0].StrList[0].Str.Add(new My_Keys('е', 'Е', "../../Resource/black/rus/small/е.png", "../../Resource/black/rus/caps/Е.png", 1, 1, 84, 84));
+            Rus_Model[0].StrList[0].Str.Add(new My_Keys('н', 'Н', "../../Resource/black/rus/small/н.png", "../../Resource/black/rus/caps/Н.png", 1, 1, 89, 89));
+            Rus_Model[0].StrList[0].Str.Add(new My_Keys('г', 'Г', "../../Resource/black/rus/small/г.png", "../../Resource/black/rus/caps/Г.png", 1, 1, 85, 85));
+            Rus_Model[0].StrList[0].Str.Add(new My_Keys('ш', 'Ш', "../../Resource/black/rus/small/ш.png", "../../Resource/black/rus/caps/Ш.png", 1, 1, 73, 73));
+            Rus_Model[0].StrList[0].Str.Add(new My_Keys('щ', 'Щ', "../../Resource/black/rus/small/щ.png", "../../Resource/black/rus/caps/Щ.png", 1, 1, 79, 79));
+            Rus_Model[0].StrList[0].Str.Add(new My_Keys('з', 'З', "../../Resource/black/rus/small/з.png", "../../Resource/black/rus/caps/З.png", 1, 1, 80, 80));
+            Rus_Model[0].StrList[0].Str.Add(new My_Keys('х', 'Х', "../../Resource/black/rus/small/х.png", "../../Resource/black/rus/caps/Х.png", 1, 1, 219, 219));
+            Rus_Model[0].StrList[0].Str.Add(new My_Keys('ъ', 'Ъ', "../../Resource/black/rus/small/ъ.png", "../../Resource/black/rus/caps/Ъ.png", 1, 1, 221, 221));
+            Rus_Model[0].StrList[0].Str.Add(new My_Keys(' ', ' ', "../../Resource/black/symb/del.png", "../../Resource/black/symb/del.png", 1, 2, 8, 8));
+
+            Rus_Model[0].StrList.Add(new OneStr());
+            Rus_Model[0].StrList[1].Str.Add(new My_Keys('ф', 'Ф', "../../Resource/black/rus/small/ф.png", "../../Resource/black/rus/caps/Ф.png", 1, 1, 65, 65));
+            Rus_Model[0].StrList[1].Str.Add(new My_Keys('ы', 'Ы', "../../Resource/black/rus/small/ы.png", "../../Resource/black/rus/caps/Ы.png", 1, 1, 68, 68));
+            Rus_Model[0].StrList[1].Str.Add(new My_Keys('в', 'В', "../../Resource/black/rus/small/в.png", "../../Resource/black/rus/caps/В.png", 1, 1, 83, 83));
+            Rus_Model[0].StrList[1].Str.Add(new My_Keys('а', 'А', "../../Resource/black/rus/small/а.png", "../../Resource/black/rus/caps/А.png", 1, 1, 70, 70));
+            Rus_Model[0].StrList[1].Str.Add(new My_Keys('п', 'П', "../../Resource/black/rus/small/п.png", "../../Resource/black/rus/caps/П.png", 1, 1, 71, 71));
+            Rus_Model[0].StrList[1].Str.Add(new My_Keys('р', 'Р', "../../Resource/black/rus/small/р.png", "../../Resource/black/rus/caps/Р.png", 1, 1, 72, 72));
+            Rus_Model[0].StrList[1].Str.Add(new My_Keys('о', 'О', "../../Resource/black/rus/small/о.png", "../../Resource/black/rus/caps/О.png", 1, 1, 74, 74));
+            Rus_Model[0].StrList[1].Str.Add(new My_Keys('л', 'Л', "../../Resource/black/rus/small/л.png", "../../Resource/black/rus/caps/Л.png", 1, 1, 75, 75));
+            Rus_Model[0].StrList[1].Str.Add(new My_Keys('д', 'Д', "../../Resource/black/rus/small/д.png", "../../Resource/black/rus/caps/Д.png", 1, 1, 76, 76));
+            Rus_Model[0].StrList[1].Str.Add(new My_Keys('ж', 'Ж', "../../Resource/black/rus/small/ж.png", "../../Resource/black/rus/caps/Ж.png", 1, 1, 186, 186));
+            Rus_Model[0].StrList[1].Str.Add(new My_Keys('э', 'Э', "../../Resource/black/rus/small/э.png", "../../Resource/black/rus/caps/Э.png", 1, 1, 222, 222));
+            Rus_Model[0].StrList[1].Str.Add(new My_Keys(' ', ' ', "../../Resource/black/symb/enter.png", "../../Resource/black/symb/enter.png", 1, 2, 13, 13));
+
+            Rus_Model[0].StrList.Add(new OneStr());
+            Rus_Model[0].StrList[2].Str.Add(new My_Keys('я', 'Я', "../../Resource/black/rus/small/я.png", "../../Resource/black/rus/caps/Я.png", 1, 1, 90, 90));
+            Rus_Model[0].StrList[2].Str.Add(new My_Keys('ч', 'Ч', "../../Resource/black/rus/small/ч.png", "../../Resource/black/rus/caps/Ч.png", 1, 1, 88, 88));
+            Rus_Model[0].StrList[2].Str.Add(new My_Keys('с', 'С', "../../Resource/black/rus/small/с.png", "../../Resource/black/rus/caps/С.png", 1, 1, 67, 67));
+            Rus_Model[0].StrList[2].Str.Add(new My_Keys('м', 'М', "../../Resource/black/rus/small/м.png", "../../Resource/black/rus/caps/М.png", 1, 1, 86, 86));
+            Rus_Model[0].StrList[2].Str.Add(new My_Keys('и', 'И', "../../Resource/black/rus/small/и.png", "../../Resource/black/rus/caps/И.png", 1, 1, 66, 66));
+            Rus_Model[0].StrList[2].Str.Add(new My_Keys('т', 'Т', "../../Resource/black/rus/small/т.png", "../../Resource/black/rus/caps/Т.png", 1, 1, 78, 78));
+            Rus_Model[0].StrList[2].Str.Add(new My_Keys('ь', 'Ь', "../../Resource/black/rus/small/ь.png", "../../Resource/black/rus/caps/Ь.png", 1, 1, 77, 77));
+            Rus_Model[0].StrList[2].Str.Add(new My_Keys('б', 'Б', "../../Resource/black/rus/small/б.png", "../../Resource/black/rus/caps/Б.png", 1, 1, 188, 188));
+            Rus_Model[0].StrList[2].Str.Add(new My_Keys('ю', 'Ю', "../../Resource/black/rus/small/ю.png", "../../Resource/black/rus/caps/Ю.png", 1, 1, 190, 190));
+            Rus_Model[0].StrList[2].Str.Add(new My_Keys('.', ',', "../../Resource/black/symb/т.png", "../../Resource/black/symb/,.png", 1, 1, 191, 191));
+
+            Rus_Model[0].StrList.Add(new OneStr());
+            Rus_Model[0].StrList[3].Str.Add(new My_Keys(' ', ' ', "../../Resource/black/symb/shift.png", "../../Resource/black/symb/shift.png", 1, 1, 16, 16));
+            Rus_Model[0].StrList[3].Str.Add(new My_Keys(' ', ' ', "../../Resource/black/symb/nums.png", "../../Resource/black/symb/nums.png", 1, 1, -2, -2));
+            Rus_Model[0].StrList[3].Str.Add(new My_Keys(' ', ' ', "", "", 1, 6, 32, 32));
+            Rus_Model[0].StrList[3].Str.Add(new My_Keys(' ', ' ', "../../Resource/black/symb/lang.png", "../../Resource/black/symb/lang.png", 1, 1, -1, -1));
+            Rus_Model[0].StrList[3].Str.Add(new My_Keys(' ', ' ', "../../Resource/black/symb/shift.png", "../../Resource/black/symb/shift.png", 1, 1, 16, 16));
+
+
         }
 
         private void NumKeys()
         {
+            Key_Model.Add(new Alphabet());
+            Key_Model[0].StrList.Add(new OneStr());
+            Key_Model[0].StrList[0].Str.Add(new My_Keys('%', '%', "../../Resource/black/symb/п.png", "../../Resource/black/symb/п.png", 1, 1, 53, 53));
+            Key_Model[0].StrList[0].Str.Add(new My_Keys(':', ':', "../../Resource/black/symb/ж.png", "../../Resource/black/symb/ж.png", 1, 1, 186, 186));
+            Key_Model[0].StrList[0].Str.Add(new My_Keys('<', '<', "../../Resource/black/symb/б.png", "../../Resource/black/symb/б.png", 1, 1, 188, 188));
+            Key_Model[0].StrList[0].Str.Add(new My_Keys('>', '>', "../../Resource/black/symb/ю.png", "../../Resource/black/symb/ю.png", 1, 1, 190, 190));
+            Key_Model[0].StrList[0].Str.Add(new My_Keys('\"', '\"', "../../Resource/black/symb/2.png", "../../Resource/black/rus/caps/2.png", 1, 1, 222, 222));
+            Key_Model[0].StrList[0].Str.Add(new My_Keys('&', '&', "../../Resource/black/symb/а.png", "../../Resource/black/rus/caps/а.png", 1, 1, 55, 55));
+            Key_Model[0].StrList[0].Str.Add(new My_Keys('*', '*', "../../Resource/black/symb/з.png", "../../Resource/black/rus/caps/з.png", 1, 1, 56, 56));
+            Key_Model[0].StrList[0].Str.Add(new My_Keys('=', '=', "../../Resource/black/symb/=.png", "../../Resource/black/rus/caps/=.png", 1, 1, 187, 187));
+           
+            Key_Model[0].StrList.Add(new OneStr());
+            Key_Model[0].StrList[1].Str.Add(new My_Keys('~', '~', "../../Resource/black/symb/~.png", "../../Resource/black/symb/~.png", 1, 1, 192, 192));
+            Key_Model[0].StrList[1].Str.Add(new My_Keys(';', ';', "../../Resource/black/symb/;.png", "../../Resource/black/symb/;.png", 1, 1, 186, 186));
+            Key_Model[0].StrList[1].Str.Add(new My_Keys('{', '{', "../../Resource/black/symb/{.png", "../../Resource/black/symb/{.png", 1, 1, 219, 219));
+            Key_Model[0].StrList[1].Str.Add(new My_Keys('}', '}', "../../Resource/black/symb/}.png", "../../Resource/black/symb/}.png", 1, 1, 221, 221));
+            Key_Model[0].StrList[1].Str.Add(new My_Keys('(', '(', "../../Resource/black/symb/(.png", "../../Resource/black/symb/(.png", 1, 1, 57, 57));
+            Key_Model[0].StrList[1].Str.Add(new My_Keys(')', ')', "../../Resource/black/symb/).png", "../../Resource/black/symb/).png", 1, 1, 48, 48));
+            Key_Model[0].StrList[1].Str.Add(new My_Keys('_', '_', "../../Resource/black/symb/_.png", "../../Resource/black/symb/_.png", 1, 1, 189, 189));
+            Key_Model[0].StrList[1].Str.Add(new My_Keys('-', '-', "../../Resource/black/symb/-.png", "../../Resource/black/symb/-.png", 1, 1, 189, 189));
+
+            Key_Model[0].StrList.Add(new OneStr());
+            Key_Model[0].StrList[2].Str.Add(new My_Keys('@', '@', "../../Resource/black/symb/@.png", "../../Resource/black/symb/@.png", 1, 1, 50, 50));
+            Key_Model[0].StrList[2].Str.Add(new My_Keys('\\', '\\', "../../Resource/black/symb/й.png", "../../Resource/black/symb/й.png", 1, 1, 220, 220));
+            Key_Model[0].StrList[2].Str.Add(new My_Keys('[', '[', "../../Resource/black/symb/х.png", "../../Resource/black/symb/х.png", 1, 1, 219, 219));
+            Key_Model[0].StrList[2].Str.Add(new My_Keys(']', ']', "../../Resource/black/symb/ъ.png", "../../Resource/black/symb/ъ.png", 1, 1, 221, 221));
+            Key_Model[0].StrList[2].Str.Add(new My_Keys('?', '?', "../../Resource/black/symb/в.png", "../../Resource/black/symb/в.png", 1, 1, 191, 191));
+            Key_Model[0].StrList[2].Str.Add(new My_Keys('!', '!', "../../Resource/black/symb/!.png", "../../Resource/black/symb/!.png", 1, 1, 49, 49));
+            Key_Model[0].StrList[2].Str.Add(new My_Keys('+', '+', "../../Resource/black/symb/+.png", "../../Resource/black/symb/+.png", 1, 1, 187, 187));
+            Key_Model[0].StrList[2].Str.Add(new My_Keys('/', '/', "../../Resource/black/symb/с.png", "../../Resource/black/symb/с.png", 1, 1, 191, 191));
+            
+            Key_Model[0].StrList.Add(new OneStr());
+            Key_Model[0].StrList[3].Str.Add(new My_Keys(' ', ' ', "../../Resource/black/symb/lang.png", "../../Resource/black/symb/lang.png", 1, 1, -1, -1));
+            Key_Model[0].StrList[3].Str.Add(new My_Keys(' ', ' ', "", "", 1, 7, 32, 32));
+
+            Key_Model.Add(new Alphabet());
+            Key_Model[1].StrList.Add(new OneStr());
+            Key_Model[1].StrList[0].Str.Add(new My_Keys('1', '1', "../../Resource/black/num/1.png", "../../Resource/black/num/1.png", 1, 1, 49, 49));
+            Key_Model[1].StrList[0].Str.Add(new My_Keys('2', '2', "../../Resource/black/num/2.png", "../../Resource/black/num/2.png", 1, 1, 50, 50));
+            Key_Model[1].StrList[0].Str.Add(new My_Keys('3', '3', "../../Resource/black/num/3.png", "../../Resource/black/num/3.png", 1, 1, 51, 51));
+
+            Key_Model[1].StrList.Add(new OneStr());
+            Key_Model[1].StrList[1].Str.Add(new My_Keys('4', '4', "../../Resource/black/num/4.png", "../../Resource/black/num/4.png", 1, 1, 52, 52));
+            Key_Model[1].StrList[1].Str.Add(new My_Keys('5', '5', "../../Resource/black/num/5.png", "../../Resource/black/num/5.png", 1, 1, 53, 53));
+            Key_Model[1].StrList[1].Str.Add(new My_Keys('6', '6', "../../Resource/black/num/6.png", "../../Resource/black/num/6.png", 1, 1, 54, 54));
+
+            Key_Model[1].StrList.Add(new OneStr());
+            Key_Model[1].StrList[2].Str.Add(new My_Keys('7', '7', "../../Resource/black/num/7.png", "../../Resource/black/num/7.png", 1, 1, 55, 55));
+            Key_Model[1].StrList[2].Str.Add(new My_Keys('8', '8', "../../Resource/black/num/8.png", "../../Resource/black/num/8.png", 1, 1, 56, 56));
+            Key_Model[1].StrList[2].Str.Add(new My_Keys('9', '9', "../../Resource/black/num/9.png", "../../Resource/black/num/9.png", 1, 1, 57, 57));
+
+            Key_Model[1].StrList.Add(new OneStr());
+            Key_Model[1].StrList[3].Str.Add(new My_Keys('0', '0', "../../Resource/black/num/0.png", "../../Resource/black/num/0.png", 1, 2.1, 48, 48));
+            Key_Model[1].StrList[3].Str.Add(new My_Keys(',', ',', "../../Resource/black/symb/,.png", "../../Resource/black/symb/0.png", 1, 1, 188, 188));
+
+            Key_Model.Add(new Alphabet());
+            Key_Model[2].StrList.Add(new OneStr());
+            Key_Model[2].StrList[0].Str.Add(new My_Keys(' ', ' ', "../../Resource/black/symb/del2.png", "../../Resource/black/symb/del.png", 1, 1, 8, 8));
+
+            Key_Model[2].StrList.Add(new OneStr());
+            Key_Model[2].StrList[1].Str.Add(new My_Keys(' ', ' ', "../../Resource/black/symb/enter2.png", "../../Resource/black/symb/enter2.png", 2.1, 1, 13, 13));
+
+            Key_Model[2].StrList.Add(new OneStr());
+            Key_Model[2].StrList[2].Str.Add(new My_Keys(' ', ' ', "../../Resource/black/symb/lang.png", "../../Resource/black/symb/lang.png", 1, 1, -1, -1));
+
         }
 
         public ICommand ISendCommand { get; private set; }
@@ -283,10 +314,15 @@ namespace BMKeyBoard.ViewModel
         [DllImport("USER32.DLL")]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
 
-        public static int SendKey(int key)
+        public static int SendKey(int key, bool whith_sh)
         {
+            if(whith_sh)
+                keybd_event((byte)(16), 0x45, 0x01, 0);
+
             keybd_event((byte)(key), 0x45, 0x01, 0);
             keybd_event((byte)(key), 0x45, 0x01 | 0x02, 0);
+            if (whith_sh)
+                keybd_event((byte)(16), 0x45, 0x01 | 0x02, 0);
 
             return 0;
         }
@@ -294,46 +330,68 @@ namespace BMKeyBoard.ViewModel
         public static void Sh()
         {
             if (sh)
-            {
                 sh = false;
-                keybd_event((byte) (16), 0x45, 0x01 | 0x02, 0);
-            }
             else
-            {
-                keybd_event((byte)(16), 0x45, 0x01, 0);
                 sh = true;
-            }
-
         }
 
-        public static void ch_lang()
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern bool PostMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+
+        [DllImport("user32.dll")]
+        static extern int LoadKeyboardLayout(string pwszKLID, uint Flags);
+        public  void ch_lang()
         {
-            if (sh)
+
+
+
+            //И сами языки 
+            //"00000407" Немецкий(стандартный) 
+            //"00000409" Английский(США) 
+            //"0000040C" Французский(стандартный) 
+            //"0000040D" Финский 
+            //"00000410" Итальянский 
+            //"00000415" Польский 
+            //"00000419" Русский 
+            //"00000422" Украинский 
+            //"00000423" Белорусский 
+            //"00000425" Эстонский 
+            //"00000426" Латвийский 
+            //"00000427" Литовский 
+            string lang = "00000419";
+            int ret;
+
+
+            if (Lang == "eng")
             {
-                keybd_event((byte)(18), 0x45, 0x01, 0);
-                keybd_event((byte)(18), 0x45, 0x01 | 0x02, 0);
-
-
+                lang = "00000419";
+                ret = LoadKeyboardLayout(lang, 1);
+                PostMessage(hwnd1, 0x50, 1, ret);
+                //keybd_event((byte)(16), 0x45, 0x01, 0);
+                //keybd_event((byte)(18), 0x45, 0x01, 0);
+                //keybd_event((byte)(18), 0x45, 0x01 | 0x02, 0);
+                //keybd_event((byte)(16), 0x45, 0x01 | 0x02, 0);
+                Lang = "rus";
+                CurLang_Model = Rus_Model;
             }
             else
             {
-                keybd_event((byte)(16), 0x45, 0x01, 0);
-                keybd_event((byte)(18), 0x45, 0x01, 0);
-                keybd_event((byte)(18), 0x45, 0x01 | 0x02, 0);
-                keybd_event((byte)(16), 0x45, 0x01 | 0x02, 0);
-               
-
-
+                lang = "00000409";
+                ret = LoadKeyboardLayout(lang, 1);
+                PostMessage(hwnd1, 0x50, 1, ret);
+                Lang = "eng";
+                CurLang_Model = Eng_Model;
             }
         } 
-        public void send_command(object obj)
+        public void send_command(object objs)
         {
-            IntPtr hwnd1 = FindWindow(null, "Новый текстовый документ — Блокнот");
+            object[] obj = objs as object[];
             SetForegroundWindow(hwnd1);
+            string code = obj[0].ToString();
+            string symb = obj[1].ToString();
 
-            const uint WM_KEYDOWN = 65;
-            const uint WM_SYSCOMMAND = 0x018;
-            if (obj.ToString() == "16")
+
+            if (code == "16")
             {
                 foreach (var VARIABLE in Eng_Model)
                 {
@@ -346,29 +404,28 @@ namespace BMKeyBoard.ViewModel
 
                 Sh();
             }
-            else if (obj.ToString() == "-1")
+            else if (code == "-1")
             {
                 ch_lang();
             }
-            else
-                SendKey((Convert.ToInt32(obj.ToString())));
-            //IntPtr result3 = SendMessage(hwnd1, WM_KEYDOWN, ((IntPtr)1), (IntPtr)0);
-            //IntPtr calculatorHandle = FindWindow("CalcFrame", "Calculator");
-            //if (calculatorHandle == IntPtr.Zero)
-            //{
-            //    MessageBox.Show("Calculator is not running.");
-            //    return;
-            //}
+            else if (code == "-2")
+            {
+                Lang = "rus";
+                ch_lang();
+                CurLang_Model = Key_Model;
+                Lang = "nums";
+            }
 
-            //// Make Calculator the foreground application and send it 
-            //// a set of calculations.
-            //SetForegroundWindow(calculatorHandle);
-            //SendKeys.SendWait("111");
-            //SendKeys.SendWait("*");
-            //SendKeys.SendWait("11");
-            //SendKeys.SendWait("=");
-            //OnPropertyChanged();
-           // SendKeys.Send(obj.ToString());
+            else if (Lang == "nums")
+            {
+                if("%:<>\"&*~{}()_@?!+".Contains(symb))
+                    SendKey((Convert.ToInt32(code)), true);
+                else
+                    SendKey((Convert.ToInt32(code)), false);
+            }
+            else
+                SendKey((Convert.ToInt32(code)), sh);
+
         }
         public event PropertyChangedEventHandler PropertyChanged;
 

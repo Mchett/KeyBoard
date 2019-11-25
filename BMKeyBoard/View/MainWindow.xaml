@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Loaded="Window_Loaded"
 
-        Title="MainWindow" Height="290" Width="750">
+        Title="MainWindow" Height="260" Width="750">
 
     <Grid>
         <Frame x:Name="Frame" NavigationUIVisibility="Hidden"/>

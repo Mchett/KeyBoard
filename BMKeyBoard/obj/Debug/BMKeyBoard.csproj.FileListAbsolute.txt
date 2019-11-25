@@ -40,3 +40,23 @@ C:\Users\Наталья Прогер\Desktop\KeyBoard\BMKeyBoard\obj\Debug\BMKey
 C:\Users\Наталья Прогер\Desktop\KeyBoard\BMKeyBoard\obj\Debug\BMKeyBoard.csproj.GenerateResource.cache
 C:\Users\Наталья Прогер\Desktop\KeyBoard\BMKeyBoard\obj\Debug\BMKeyBoard.exe
 C:\Users\Наталья Прогер\Desktop\KeyBoard\BMKeyBoard\obj\Debug\BMKeyBoard.pdb
+C:\Users\nbor9\Desktop\KeyBoard\BMKeyBoard\bin\Debug\BMKeyBoard.exe.config
+C:\Users\nbor9\Desktop\KeyBoard\BMKeyBoard\bin\Debug\BMKeyBoard.exe
+C:\Users\nbor9\Desktop\KeyBoard\BMKeyBoard\bin\Debug\BMKeyBoard.pdb
+C:\Users\nbor9\Desktop\KeyBoard\BMKeyBoard\obj\Debug\BMKeyBoard.csprojAssemblyReference.cache
+C:\Users\nbor9\Desktop\KeyBoard\BMKeyBoard\obj\Debug\View\MainWindow.g.cs
+C:\Users\nbor9\Desktop\KeyBoard\BMKeyBoard\obj\Debug\View\Pages\Key.g.cs
+C:\Users\nbor9\Desktop\KeyBoard\BMKeyBoard\obj\Debug\App.g.cs
+C:\Users\nbor9\Desktop\KeyBoard\BMKeyBoard\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\nbor9\Desktop\KeyBoard\BMKeyBoard\obj\Debug\BMKeyBoard_MarkupCompile.cache
+C:\Users\nbor9\Desktop\KeyBoard\BMKeyBoard\obj\Debug\BMKeyBoard_MarkupCompile.lref
+C:\Users\nbor9\Desktop\KeyBoard\BMKeyBoard\obj\Debug\View\MainWindow.baml
+C:\Users\nbor9\Desktop\KeyBoard\BMKeyBoard\obj\Debug\View\Pages\Key.baml
+C:\Users\nbor9\Desktop\KeyBoard\BMKeyBoard\obj\Debug\BMKeyBoard.g.resources
+C:\Users\nbor9\Desktop\KeyBoard\BMKeyBoard\obj\Debug\BMKeyBoard.Properties.Resources.resources
+C:\Users\nbor9\Desktop\KeyBoard\BMKeyBoard\obj\Debug\BMKeyBoard.csproj.GenerateResource.cache
+C:\Users\nbor9\Desktop\KeyBoard\BMKeyBoard\obj\Debug\BMKeyBoard.csproj.CoreCompileInputs.cache
+C:\Users\nbor9\Desktop\KeyBoard\BMKeyBoard\obj\Debug\BMKeyBoard.exe
+C:\Users\nbor9\Desktop\KeyBoard\BMKeyBoard\obj\Debug\BMKeyBoard.pdb
+C:\Users\nbor9\Desktop\KeyBoard\BMKeyBoard\obj\Debug\View\Pages\Lang.g.cs
+C:\Users\nbor9\Desktop\KeyBoard\BMKeyBoard\obj\Debug\View\Pages\Lang.baml

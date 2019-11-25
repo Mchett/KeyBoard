@@ -1,0 +1,98 @@
+﻿<Page x:Class="BMKeyBoard.View.Pages.Lang"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+
+      xmlns:local="clr-namespace:BMKeyBoard.View.Pages"
+      xmlns:vm="clr-namespace:BMKeyBoard.ViewModel"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+
+      xmlns:system="http://schemas.microsoft.com/winfx/2009/xaml"
+      mc:Ignorable="d" d:DesignWidth="730"
+      Title="lang" Height="220">
+    <Page.Resources>
+        <vm:YourConverter x:Key="YC" />
+    </Page.Resources>
+    <Page.DataContext>
+        <vm:PageVM/>
+    </Page.DataContext>
+    <Grid HorizontalAlignment="Center">
+        <Button Visibility="Collapsed" x:Name="Button" Command="{Binding ISendCommand}"></Button>
+
+        <ItemsControl ItemsSource="{Binding CurLang_Model}"  >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ItemsControl ItemsSource="{Binding StrList}"  >
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel HorizontalAlignment="Center" Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ItemsControl ItemsSource="{Binding Str}" >
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <TextBlock Name="b" Text="{Binding SendInfoN}" Visibility="Collapsed"/>
+                                                <TextBlock Name="a" Text="{Binding ContentN}" Visibility="Collapsed"/>
+                                                <Button  Command="{Binding ElementName=Button, Path=Command}" Margin="2" Height="{Binding H}" Width="{Binding W}">
+                                                    <Button.CommandParameter>
+                                                        <MultiBinding Converter="{StaticResource  YC}">
+                                                            <Binding Path ="Text" ElementName="b"/>
+                                                            <Binding Path="Text" ElementName="a"/>
+                                                        </MultiBinding>
+                                                    </Button.CommandParameter>
+                                                    <Button.Template>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <Grid>
+                                                                <Rectangle Stroke="DimGray" StrokeThickness="2" >
+                                                                    <Rectangle.Fill>
+                                                                        <ImageBrush ImageSource="{Binding IconN}"/>
+                                                                    </Rectangle.Fill>
+                                                                </Rectangle>
+                                                                <Rectangle Stroke="Transparent" StrokeThickness="2">
+                                                                    <Rectangle.Fill>
+                                                                        <SolidColorBrush Color="Black" Opacity="0.2"></SolidColorBrush>
+                                                                    </Rectangle.Fill>
+                                                                </Rectangle>
+
+                                                            </Grid>
+                                                        </ControlTemplate>
+                                                    </Button.Template>
+                                                </Button>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <!--<ItemsControl ItemsSource="{Binding Proc}" Margin="10" >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBox Text ="{Binding name}"></TextBox>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>-->
+    </Grid>
+</Page>

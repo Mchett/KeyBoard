@@ -27,7 +27,7 @@ namespace BMKeyBoard
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            App.MainNavigationService.Navigate(new Eng());
+            App.MainNavigationService.Navigate(new Lang());
         }
     }
 }
