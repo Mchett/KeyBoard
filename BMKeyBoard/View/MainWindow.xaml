@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:BMKeyBoard"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-
-        Title="MainWindow" Height="260" Width="750">
+        Topmost="True"
+        WindowStyle="None"
+        Title="Keyboard" Height="260" Width="750">
 
     <Grid>
         <Frame x:Name="Frame" NavigationUIVisibility="Hidden"/>

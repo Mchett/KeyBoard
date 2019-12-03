@@ -28,9 +28,6 @@ namespace BMKeyBoard.ViewModel
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
                 return values.Clone();
-
-                Tuple<string, string> tuple = new Tuple<string, string>((string)values[0], (string)values[1]);
-            return tuple;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
@@ -44,6 +41,7 @@ namespace BMKeyBoard.ViewModel
     {
         public static YourConverter YC = new YourConverter();
         private static IntPtr hwnd1;
+        private static IntPtr hwnd2;
         private ObservableCollection<Pr> _proc = new ObservableCollection<Pr>();
         public ObservableCollection<Pr> Proc
         {
@@ -74,6 +72,8 @@ namespace BMKeyBoard.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        private static Thread MyT = null;
         private ObservableCollection<Alphabet> _model_Rus = new ObservableCollection<Alphabet>();
         public ObservableCollection<Alphabet> Rus_Model
         {
@@ -118,7 +118,38 @@ namespace BMKeyBoard.ViewModel
             Lang = "eng";
             CurLang_Model = Eng_Model;
             hwnd1 = FindWindow(null, "Новый текстовый документ.txt – Блокнот");
+            if (MyT == null)
+            {
+                MyT = new Thread(currForeg);
+                MyT.Start();
+            }
+        }
 
+        public void currForeg()
+        {
+            
+            IntPtr hwnd3 = (IntPtr) 0;
+            hwnd3 = GetForegroundWindow();
+            //Process[] ProcessesList = Process.GetProcesses();
+
+            //foreach (var m in ProcessesList)
+            //{
+
+            //    if (m.MainWindowTitle == "Keyboard")
+            //    {
+            //        hwnd3 = m.Handle;
+            //    }
+            //}
+
+            while (true)
+            {
+                hwnd2 = GetForegroundWindow();
+                if (hwnd2 != hwnd1 && hwnd2 != hwnd3)
+                    hwnd1 = hwnd2;
+               
+
+                Thread.Sleep(300);
+            }
         }
 
         private void EngAlph() 
@@ -386,7 +417,7 @@ namespace BMKeyBoard.ViewModel
         public void send_command(object objs)
         {
             object[] obj = objs as object[];
-            SetForegroundWindow(hwnd1);
+                SetForegroundWindow(hwnd1);
             string code = obj[0].ToString();
             string symb = obj[1].ToString();
 
@@ -422,6 +453,15 @@ namespace BMKeyBoard.ViewModel
                     SendKey((Convert.ToInt32(code)), true);
                 else
                     SendKey((Convert.ToInt32(code)), false);
+            }
+            else if (Lang == "eng")
+            {
+                if ("*&!?".Contains(symb))
+                    SendKey((Convert.ToInt32(code)), true);
+                else if (".,".Contains(symb))
+                    SendKey((Convert.ToInt32(code)), false);
+                else
+                    SendKey((Convert.ToInt32(code)), sh);
             }
             else
                 SendKey((Convert.ToInt32(code)), sh);
